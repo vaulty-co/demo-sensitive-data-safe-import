@@ -24,9 +24,9 @@ type User struct {
 var ssnList []string
 
 func main() {
-	var users []User
-
 	http.HandleFunc("/users", func(w http.ResponseWriter, req *http.Request) {
+		var users []User
+
 		for i := 0; i < 10; i++ {
 			user := User{
 				Name:        faker.Name().Name(),
