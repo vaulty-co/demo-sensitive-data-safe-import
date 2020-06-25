@@ -1,0 +1,39 @@
+{
+	"routes":[
+		{
+			"name":"out-import-users",
+			"method":"*",
+			"url":"http://external-api:3001/users",
+			"response_transformations": [
+				{
+					"type": "json",
+					"expression": "#.Email",
+					"action": {
+						"type": "tokenize",
+						"format": "email"
+					}
+				},
+				{
+					"type": "json",
+					"expression": "#.IP",
+					"action": {
+						"type": "hash"
+					}
+				},
+				{
+					"type": "json",
+					"expression": "#.PhoneNumber, #.CardNumber, #.SSN, #.AccessToken",
+					"action": {
+						"type": "encrypt"
+					}
+				}
+			]
+		},
+		{
+			"name":"out-all",
+			"method":"*",
+			"url":"http://external-api:3001/*",
+			"request_transformations": []
+		}
+	]
+}

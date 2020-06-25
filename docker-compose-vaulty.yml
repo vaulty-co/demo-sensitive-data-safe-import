@@ -1,0 +1,26 @@
+version: '2.0'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "80:3000"
+    links:
+      - vaulty
+    environment:
+      - "http_proxy=http://vaulty:8080"
+
+  external-api:
+    build: ./external-api
+    ports:
+      - "3001:3001"
+
+  vaulty:
+    image: vaulty/vaulty
+    command: ./vaulty proxy --debug -r /.vaulty/routes.json --ca /.vaulty
+    links:
+      - external-api
+    environment:
+      - PROXY_PASS
+      - ENCRYPTION_KEY
+    volumes:
+      - "./vaulty:/.vaulty"
