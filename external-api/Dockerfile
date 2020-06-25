@@ -3,6 +3,6 @@ WORKDIR /app
 COPY go.* ./
 RUN go mod download
 ADD . ./
-RUN go build -o api
+RUN go build -o app
 EXPOSE 3001
-CMD ["./api"]
+CMD ["./app"]

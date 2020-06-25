@@ -2,9 +2,11 @@ package main
 
 import (
 	"bufio"
+	"crypto/rand"
 	"encoding/json"
+	"fmt"
 	"log"
-	"math/rand"
+	mrand "math/rand"
 	"net/http"
 	"os"
 	"time"
@@ -19,15 +21,23 @@ type User struct {
 	IP          string
 	CardNumber  string
 	SSN         string
+	AccessToken string
 }
 
 var ssnList []string
 
 func main() {
+
 	http.HandleFunc("/users", func(w http.ResponseWriter, req *http.Request) {
 		var users []User
 
 		for i := 0; i < 10; i++ {
+			randAccKey := make([]byte, 10)
+			_, err := rand.Read(randAccKey)
+			if err != nil {
+				panic(err)
+			}
+
 			user := User{
 				Name:        faker.Name().Name(),
 				Email:       faker.Internet().Email(),
@@ -35,6 +45,7 @@ func main() {
 				IP:          faker.Internet().IpV4Address(),
 				CardNumber:  faker.Finance().CreditCard(faker.CC_VISA),
 				SSN:         pickSSN(),
+				AccessToken: fmt.Sprintf("%x", randAccKey),
 			}
 
 			users = append(users, user)
@@ -71,6 +82,6 @@ func pickSSN() string {
 		}
 	}
 
-	rand.Seed(time.Now().Unix())
-	return ssnList[rand.Intn(len(ssnList))]
+	mrand.Seed(time.Now().UnixNano())
+	return ssnList[mrand.Intn(len(ssnList))]
 }
