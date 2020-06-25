@@ -18,9 +18,10 @@ type user struct {
 	IP          string
 	CardNumber  string
 	SSN         string
+	AccessToken string
 }
 
-const EXT_API_URL = "http://api:3001/users"
+const EXT_API_URL = "http://external-api:3001/users"
 
 func main() {
 	db := &DB{}
@@ -43,7 +44,8 @@ func main() {
 		}
 		db.AddList(users)
 
-		fmt.Fprintf(w, "Pulled %d users from external API", len(users))
+		fmt.Fprintf(w, `<p>Pulled %d users from external API</p>`, len(users))
+		fmt.Fprintf(w, `<p><a href="/users">Users</a></p>`)
 	})
 
 	mux.HandleFunc("/users", func(w http.ResponseWriter, req *http.Request) {

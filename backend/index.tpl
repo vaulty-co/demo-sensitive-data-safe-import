@@ -4,33 +4,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:800" rel="stylesheet">
-<link rel="stylesheet" href="/css/normalize.css">
-<link rel="stylesheet" href="/css/skeleton.css">
-<style>
-    body {
-		font-family: 'Open Sans', sans-serif;
-	}
-
-	h4 {
-		color: #000;
-		font-family: 'Raleway', sans-serif;
-		font-weight: 800;
-		font-size: 30px;
-		margin: 0;		
-	}	
-
-	.container {
-		padding-top: 50px;
-		text-align: left;
-	}
-
-</style>
+<link href="/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400|Raleway:800" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
+	<main>
 		<h4>Users</h4>
-		<table class="pure-table pure-table-horizontal u-full-width">
+		<table>
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -39,6 +19,7 @@
 					<th>IP</th>
 					<th>Card</th>
 					<th>SSN</th>
+					<th>Access Token</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -50,10 +31,11 @@
 					<td>{{.IP}}</td>
 					<td>{{.CardNumber}}</td>
 					<td>{{.SSN}}</td>
+					<td>{{.AccessToken}}</td>
 				</tr>
 				{{end}}
 			</tbody>
 		</table>
-	</div>
+</main>
 </body>
 </html>
