@@ -21,6 +21,7 @@ services:
       - external-api
     environment:
       - PROXY_PASS
-      - ENCRYPTION_KEY
+      - VAULTY_ENCRYPTION_KEY
+      - VAULTY_ENCRYPTION_TYPE=aesgcm
     volumes:
       - "./vaulty:/.vaulty"
